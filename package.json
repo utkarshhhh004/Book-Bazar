@@ -1,0 +1,30 @@
+{
+  "name": "book-bazar",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n web,api -c blue,green \"npm run dev:web\" \"npm run dev:api\"",
+    "dev:web": "npm run dev --workspace @book-bazar/web",
+    "dev:api": "npm run dev --workspace @book-bazar/api",
+    "build": "npm run build --workspace @book-bazar/shared && npm run build --workspace @book-bazar/api && npm run build --workspace @book-bazar/web",
+    "typecheck": "npm run typecheck --workspace @book-bazar/shared && npm run typecheck --workspace @book-bazar/api && npm run typecheck --workspace @book-bazar/web",
+    "db:generate": "npm run db:generate --workspace @book-bazar/api",
+    "db:migrate": "npm run db:migrate --workspace @book-bazar/api",
+    "db:studio": "npm run db:studio --workspace @book-bazar/api"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.10",
+    "concurrently": "^9.1.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "dotenv": "^18.0.10",
+    "jsonwebtoken": "^9.0.3",
+    "zod": "^4.6.7"
+  }
+}

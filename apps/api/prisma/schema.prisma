@@ -1,0 +1,93 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserStatus {
+  ACTIVE
+  PENDING_VERIFICATION
+  SUSPENDED
+  DEACTIVATED
+}
+
+model User {
+  id           String     @id @default(uuid()) @db.Uuid
+  email        String?    @unique
+  phone        String?    @unique
+  passwordHash String?    @map("password_hash")
+  status       UserStatus @default(PENDING_VERIFICATION)
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt @map("updated_at")
+
+  profile      UserProfile?
+  listings     BookListing[] @relation("ListingSeller")
+  purchases    Order[]       @relation("OrderBuyer")
+
+  @@map("users")
+}
+
+model UserProfile {
+  id        String   @id @default(uuid()) @db.Uuid
+  userId    String   @unique @map("user_id") @db.Uuid
+  fullName  String   @map("full_name")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_profiles")
+}
+
+model Book {
+  id        String        @id @default(uuid()) @db.Uuid
+  title     String
+  isbn      String?
+  author    String?
+  publisher String?
+  edition   String?
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+
+  listings BookListing[]
+
+  @@index([title])
+  @@index([isbn])
+  @@map("books")
+}
+
+model BookListing {
+  id             String   @id @default(uuid()) @db.Uuid
+  bookId         String   @map("book_id") @db.Uuid
+  sellerId       String   @map("seller_id") @db.Uuid
+  pricePaise     Int      @map("price_paise")
+  condition      String
+  availableQty   Int      @default(1) @map("available_qty")
+  status         String   @default("DRAFT")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  book   Book @relation(fields: [bookId], references: [id], onDelete: Restrict)
+  seller User @relation("ListingSeller", fields: [sellerId], references: [id], onDelete: Restrict)
+
+  @@index([sellerId, status])
+  @@index([bookId])
+  @@map("book_listings")
+}
+
+model Order {
+  id          String   @id @default(uuid()) @db.Uuid
+  buyerId     String   @map("buyer_id") @db.Uuid
+  status      String   @default("PENDING_PAYMENT")
+  totalPaise  Int      @map("total_paise")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  buyer User @relation("OrderBuyer", fields: [buyerId], references: [id], onDelete: Restrict)
+
+  @@index([buyerId, createdAt])
+  @@map("orders")
+}

@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const sellerOrderSchema = new mongoose.Schema(
@@ -24,6 +25,10 @@ const sellerOrderSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Book subtotal must be an integer in paise.",
+      },
     },
 
     shippingPaise: {
@@ -31,6 +36,10 @@ const sellerOrderSchema = new mongoose.Schema(
       required: true,
       min: 0,
       default: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Shipping amount must be an integer in paise.",
+      },
     },
 
     sellerFulfillmentStatus: {

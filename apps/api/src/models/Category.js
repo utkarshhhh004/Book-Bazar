@@ -46,7 +46,6 @@ const categorySchema = new mongoose.Schema(
   }
 );
 
-categorySchema.index({ slug: 1 }, { unique: true });
 categorySchema.index({ parentCategoryId: 1 });
 categorySchema.index({ status: 1 });
 

@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const commissionLedgerSchema = new mongoose.Schema(
@@ -19,6 +18,10 @@ const commissionLedgerSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Book subtotal must be an integer in paise.",
+      },
     },
 
     sellerDiscountPaise: {
@@ -26,6 +29,10 @@ const commissionLedgerSchema = new mongoose.Schema(
       required: true,
       min: 0,
       default: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Seller discount must be an integer in paise.",
+      },
     },
 
     commissionRate: {
@@ -34,12 +41,20 @@ const commissionLedgerSchema = new mongoose.Schema(
       min: 0,
       max: 100,
       default: 10,
+      validate: {
+        validator: Number.isFinite,
+        message: "Commission rate must be a finite number.",
+      },
     },
 
     commissionPaise: {
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Commission must be an integer in paise.",
+      },
     },
 
     waiverApplied: {
@@ -67,7 +82,7 @@ const commissionLedgerSchema = new mongoose.Schema(
     },
     versionKey: false,
     collection: "commissionledgers",
-  }
+  },
 );
 
 commissionLedgerSchema.index({ sellerId: 1 });
@@ -76,7 +91,7 @@ commissionLedgerSchema.index({ createdAt: -1 });
 
 const CommissionLedger = mongoose.model(
   "CommissionLedger",
-  commissionLedgerSchema
+  commissionLedgerSchema,
 );
 
 export default CommissionLedger;

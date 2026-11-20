@@ -16,9 +16,9 @@ const inventoryReservationSchema = new mongoose.Schema(
     },
 
     checkoutId: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Checkout",
       required: true,
-      trim: true,
     },
 
     quantity: {
@@ -26,9 +26,7 @@ const inventoryReservationSchema = new mongoose.Schema(
       required: true,
       min: 1,
       validate: {
-        validator(value) {
-          return Number.isSafeInteger(value);
-        },
+        validator: Number.isSafeInteger,
         message: "Reserved quantity must be a whole number.",
       },
     },

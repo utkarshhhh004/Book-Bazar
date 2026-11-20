@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const earningSchema = new mongoose.Schema(
@@ -19,12 +18,20 @@ const earningSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Gross book amount must be an integer in paise.",
+      },
     },
 
     commissionPaise: {
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Commission must be an integer in paise.",
+      },
     },
 
     shippingPaise: {
@@ -32,12 +39,20 @@ const earningSchema = new mongoose.Schema(
       required: true,
       min: 0,
       default: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Shipping amount must be an integer in paise.",
+      },
     },
 
     netEarningPaise: {
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Net earning must be an integer in paise.",
+      },
     },
 
     eligibilityAt: {
@@ -56,7 +71,7 @@ const earningSchema = new mongoose.Schema(
     timestamps: true,
     versionKey: false,
     collection: "earnings",
-  }
+  },
 );
 
 earningSchema.index({ sellerId: 1 });

@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 const orderSchema = new mongoose.Schema(
@@ -41,6 +40,10 @@ const orderSchema = new mongoose.Schema(
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Book subtotal must be an integer in paise.",
+      },
     },
 
     shippingTotalPaise: {
@@ -48,12 +51,20 @@ const orderSchema = new mongoose.Schema(
       required: true,
       min: 0,
       default: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Shipping total must be an integer in paise.",
+      },
     },
 
     gatewayFeePaise: {
       type: Number,
       min: 0,
       default: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Gateway fee must be an integer in paise.",
+      },
     },
 
     taxTotalPaise: {
@@ -61,12 +72,20 @@ const orderSchema = new mongoose.Schema(
       required: true,
       min: 0,
       default: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Tax total must be an integer in paise.",
+      },
     },
 
     totalPaise: {
       type: Number,
       required: true,
       min: 0,
+      validate: {
+        validator: Number.isSafeInteger,
+        message: "Order total must be an integer in paise.",
+      },
     },
 
     paymentStatus: {
@@ -85,10 +104,9 @@ const orderSchema = new mongoose.Schema(
     timestamps: true,
     versionKey: false,
     collection: "orders",
-  }
+  },
 );
 
-orderSchema.index({ orderNumber: 1 }, { unique: true });
 orderSchema.index({ buyerId: 1, createdAt: -1 });
 orderSchema.index({ paymentStatus: 1 });
 orderSchema.index({ orderStatus: 1 });

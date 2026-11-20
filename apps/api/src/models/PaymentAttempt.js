@@ -80,11 +80,6 @@ const paymentAttemptSchema = new mongoose.Schema(
   }
 );
 
-paymentAttemptSchema.index(
-  { idempotencyKey: 1 },
-  { unique: true }
-);
-
 paymentAttemptSchema.index({ orderId: 1 });
 paymentAttemptSchema.index({ providerOrderId: 1 });
 paymentAttemptSchema.index({ status: 1 });

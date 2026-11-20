@@ -49,7 +49,6 @@ const authorProfileSchema = new mongoose.Schema(
   }
 );
 
-authorProfileSchema.index({ userId: 1 }, { unique: true });
 authorProfileSchema.index({ profileStatus: 1 });
 
 const AuthorProfile = mongoose.model(

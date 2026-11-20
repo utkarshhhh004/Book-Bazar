@@ -1,3 +1,4 @@
+
 import mongoose from "mongoose";
 
 const cartItemSchema = new mongoose.Schema(
@@ -48,8 +49,6 @@ const cartSchema = new mongoose.Schema(
     collection: "carts",
   },
 );
-
-cartSchema.index({ buyerId: 1 }, { unique: true });
 
 const Cart = mongoose.model("Cart", cartSchema);
 

@@ -7,6 +7,7 @@ import { env } from "./config/env.js";
 
 import healthRoutes from "./routes/health.routes.js";
 import authRoutes from "./routes/auth.routes.js";
+import checkoutRoutes from "./routes/checkout.routes.js";
 
 import {
   notFoundHandler,
@@ -39,6 +40,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/health", healthRoutes);
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/checkout", checkoutRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

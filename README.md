@@ -1,254 +1,173 @@
+# Book Bazar
 
-# BOOK BAZAR
+### A Multi-Vendor Marketplace for Physical Books
 
-### A Multi-Vendor Online Marketplace for Books
+Book Bazar is a multi-vendor online marketplace designed to connect book buyers, independent sellers, and authors through one unified platform.
 
-Book Bazar is a multi-vendor online marketplace where users can discover, purchase, sell and publish books through a single platform.
+Users can purchase books, sell their existing books, and publish their own physical books using a single account. Multiple capabilities can coexist without requiring separate accounts.
 
-The platform connects book buyers, independent sellers and authors, allowing individuals to participate in multiple marketplace activities using one account.
-
-Whether someone wants to purchase a single book, sell their existing books, publish their own work, or perform all these activities together, Book Bazar provides a centralized platform to manage everything.
+**Core Principle: One Account → Buyer + Seller + Author (Any Combination).**
 
 ---
 
-# 1. Project Vision
+## 1. Project Overview
 
-The vision of Book Bazar is to create a unified book marketplace where anyone can participate as a buyer, seller or author without maintaining separate accounts for different activities.
+### 1.1 Vision
 
-Unlike a traditional online bookstore, Book Bazar allows multiple independent sellers and authors to list their books on the same platform.
+To build a unified book marketplace where readers can discover and purchase books, sellers can reach buyers, and authors can make their publications available through a centralized platform.
 
-The platform manages the complete marketplace lifecycle, including book discovery, listings, inventory, shopping, checkout, payments, commissions, orders and delivery.
+### 1.2 Initial Product Scope
 
-# 2. Core Platform Concept
+The initial release focuses on physical books:
 
-## 2.1 One Account, Multiple Capabilities
+- New books.
+- Used books.
+- Rare and collectible books.
+- Academic, notes, and reference books.
 
-**A single user account can perform multiple activities on Book Bazar.**
+Digital book publishing and distribution are planned for a future release.
 
-A user is not restricted to one role. The same account can purchase books, sell books and publish books.
+Unauthorized photocopies, counterfeit books, and copyright-infringing content are prohibited.
 
-For example:
+### 1.3 User Capabilities
 
-| User   | Activities                           |
-| ------ | ------------------------------------ |
-| User A | Purchases books                      |
-| User B | Sells books                          |
-| User C | Publishes books as an author         |
-| User D | Purchases and sells books            |
-| User E | Purchases books and publishes books  |
-| User F | Sells books and publishes books      |
-| User G | Purchases, sells and publishes books |
+| Capability  | Responsibilities                                                            |
+| ----------- | --------------------------------------------------------------------------- |
+| Buyer       | Discover books, purchase, track orders, submit eligible reviews             |
+| Seller      | Complete verification, publish listings, manage inventory and fulfil orders |
+| Author      | Submit publications, provide ownership evidence and manage author profile   |
+| Super Admin | Manage platform governance, moderation, verification and oversight          |
 
-All these activities are performed through one account.
+An ordinary account can have Buyer, Seller, and Author capabilities simultaneously. Super Admin access is separate.
 
-### Important Principles
+Seller and Author capabilities are activated through their respective workflows. Public selling requires seller verification and public publishing requires author approval.
 
-- A user registers only once.
-- No separate accounts are required for buyers, sellers or authors.
-- Every user can purchase books.
-- Users can start selling books through the same account.
-- Users can use author capabilities through the same account.
-- Multiple capabilities can coexist.
-- User capabilities and permissions are managed independently.
-- Administrative privileges are separate from ordinary marketplace capabilities.
+---
 
-**Core Principle: One User Account → Buyer + Seller + Author (Any Combination).**
+## 2. Core Marketplace Features
 
-# 3. User Capabilities
+### Buyer
 
-## 3.1 Buyer
-
-Users can purchase physical books from different sellers.
-
-Features:
-
-- Browse available books.
-- Search books by title, author and category.
-- Filter books by price and other available attributes.
-- View book details and seller information.
-- Add books to cart.
-- Maintain a wishlist.
+- Browse and search physical books.
+- Filter and sort marketplace offers.
+- View book details and multiple seller offers.
+- Manage cart and wishlist.
 - Manage delivery addresses.
-- Complete checkout.
+- Purchase from multiple sellers in one checkout.
 - Make online payments.
 - Track orders and shipments.
-- View purchase history.
-- Submit eligible book reviews.
+- Access purchase history and receipts.
+- Submit eligible verified-purchase reviews.
+- Raise support requests and eligible disputes.
 
-## 3.2 Seller
+### Seller
 
-Users can sell their physical books through the marketplace.
+- Activate seller capability.
+- Complete individual or business verification.
+- Create draft listings before verification.
+- Publish listings after approval.
+- Manage book information, condition, images, prices and inventory.
+- Receive seller-specific orders.
+- Select courier and manage dispatch.
+- Enter tracking information and dispatch evidence.
+- View commission, earnings and settlement history.
+- Manage payout destination verification.
 
-Features:
+### Author
 
-- Create book listings.
-- Add book descriptions and images.
-- Specify book condition.
-- Set fixed selling prices.
-- Manage inventory.
-- Update or deactivate listings.
-- View received orders.
-- Manage seller-specific fulfillment.
-- Track shipments.
-- View sales history.
-- View commission and earnings information.
+- Activate author capability.
+- Maintain author profile.
+- Submit physical book publications.
+- Provide authorship and ownership declarations.
+- Upload supporting evidence.
+- Complete copyright, plagiarism and compliance review.
+- Manage approved publication information.
 
-## 3.3 Author
+### Super Admin
 
-Authors can maintain their author presence on Book Bazar.
+- Review seller verification applications.
+- Review author publishing submissions.
+- Moderate catalogue listings and reviews.
+- Manage user restrictions and appeals.
+- Oversee orders, disputes and refunds.
+- Access financial reporting and reconciliation information.
+- Configure platform policies.
+- Review administrative audit logs.
 
-Initial capabilities:
+---
 
-- Create an author profile.
-- Manage author information.
-- Associate books with their author profiles.
-- Make physical books available through the marketplace.
+## 3. Approved Business Rules
 
-Future capabilities:
+| Area                 | Approved Rule                                                                             |
+| -------------------- | ----------------------------------------------------------------------------------------- |
+| Marketplace          | Multi-vendor physical-book marketplace                                                    |
+| Account              | One account with multiple capabilities                                                    |
+| Pricing              | Fixed prices; negotiation excluded                                                        |
+| Seller Commission    | Standard 10% of eligible net book selling price                                           |
+| Commission Base      | Excludes delivery and separately collected taxes; seller-funded discounts reduce the base |
+| First Transaction    | One shared successful purchase-or-sale entitlement per account                            |
+| Checkout             | Unified multi-vendor checkout                                                             |
+| Order Structure      | Parent order and independent seller orders                                                |
+| Inventory            | No stock reservation in cart                                                              |
+| Checkout Reservation | Atomic 15-minute inventory reservation                                                    |
+| Delivery             | Seller-managed courier and tracking                                                       |
+| Dispatch Target      | Within three business days after confirmed payment                                        |
+| Return Window        | Three calendar days after delivery, subject to eligibility                                |
+| Seller Settlements   | Weekly, with no minimum payout threshold                                                  |
+| Reviews              | Verified purchasers after confirmed delivery                                              |
+| Notifications        | In-app and email initially                                                                |
+| Digital Books        | Future expansion                                                                          |
 
-- Digital book publishing.
-- Digital book distribution.
-- Author publishing dashboard.
-- Digital book library.
+### Financial and Payment Rules
 
-# 4. Business Model and Platform Rules
+- All monetary values are stored as integer paise.
+- Payment success must be verified server-side.
+- Webhook signatures and idempotency must be enforced.
+- Duplicate financial operations must be prevented.
+- Refunds must be recorded separately from original receipts.
+- Seller payouts require verified payout destinations and provider confirmation.
+- Disputes, refunds, chargebacks and applicable holds affect payout eligibility.
 
-## 4.1 Marketplace Model
+**Payment provider status:** Cashfree Easy Split is a preferred candidate, not a finalized integration. Marketplace eligibility, UPI support, vendor onboarding, fees, refunds and settlement capabilities require confirmation before provider selection.
 
-Book Bazar follows a multi-vendor marketplace model.
+---
 
-- Multiple sellers can list books.
-- Buyers can purchase books from different sellers.
-- One buyer checkout may contain listings from multiple sellers.
-- The platform manages parent orders and seller-specific fulfillment.
-- The platform coordinates payment and delivery workflows.
+## 4. Technology Stack
 
-## 4.2 Fixed Pricing
+The initial implementation uses JavaScript and a modular monolithic architecture.
 
-All seller listings use fixed prices.
+### Frontend
 
-Buyer-seller negotiation is not included in the initial product.
+| Technology       | Purpose                       |
+| ---------------- | ----------------------------- |
+| React 19         | User interface                |
+| JavaScript ES6+  | Frontend programming          |
+| Vite             | Development and build tooling |
+| Tailwind CSS 4   | Styling                       |
+| React Router DOM | Client-side routing           |
+| Axios            | HTTP communication            |
+| TanStack Query   | Server-state management       |
+| React Hook Form  | Form management               |
+| Zod              | Schema validation             |
+| Lucide React     | Icons                         |
 
-## 4.3 Seller Commission
+### Backend
 
-The standard seller commission is **10% of the eligible selling price**.
+| Technology      | Purpose               |
+| --------------- | --------------------- |
+| Node.js         | JavaScript runtime    |
+| Express.js 5    | REST API              |
+| JavaScript ES6+ | Backend programming   |
+| MongoDB         | Primary database      |
+| Mongoose        | Object data modeling  |
+| JWT             | Authentication        |
+| bcryptjs        | Password hashing      |
+| Zod             | Request validation    |
+| Multer          | File upload handling  |
+| Helmet          | HTTP security headers |
+| Nodemailer      | Email communication   |
 
-The applicable commission is calculated and recorded by the backend.
-
-The treatment of shipping charges, taxes and discounts must follow the finalized commission calculation policy.
-
-## 4.4 First-Transaction Entitlement
-
-Each user account receives one first-transaction entitlement.
-
-A successful purchase OR sale consumes this entitlement.
-
-Rules:
-
-1. The entitlement can be consumed only once per account.
-2. A successful purchase consumes the entitlement.
-3. A successful eligible sale consumes the entitlement.
-4. The first eligible sale receives a seller commission waiver.
-5. A purchase does not receive a buyer platform-fee waiver.
-6. Failed transactions do not consume the entitlement.
-7. Concurrent transactions must not consume the entitlement more than once.
-
-## 4.5 Physical Book Delivery
-
-Physical orders use platform-managed courier integration.
-
-The platform coordinates shipment creation, tracking and delivery status through an external courier integration.
-
-## 4.6 Configurable Launch Cities
-
-Launch cities must be configurable through platform administration.
-
-Cities must not be hardcoded into application logic.
-
-## 4.7 Digital Publishing
-
-Digital book publishing is planned for a future release.
-
-The architecture reserves a dedicated module for this functionality without making it a dependency of the initial physical-book marketplace.
-
-# 5. Major Platform Modules
-
-| Module          | Responsibility                        |
-| --------------- | ------------------------------------- |
-| Authentication  | Registration, login and verification  |
-| User Management | Accounts, profiles and capabilities   |
-| Book Catalogue  | Book information and categories       |
-| Marketplace     | Seller listings and inventory         |
-| Search          | Book discovery and filtering          |
-| Shopping Cart   | Cart management                       |
-| Wishlist        | Saved books                           |
-| Checkout        | Address and purchase workflow         |
-| Orders          | Buyer orders and seller fulfillment   |
-| Payments        | Payment initiation and verification   |
-| Commission      | Seller commission and earnings        |
-| Entitlements    | First-transaction entitlement         |
-| Shipping        | Courier integration and tracking      |
-| Reviews         | Ratings and feedback                  |
-| Author          | Author profiles and book associations |
-| Notifications   | Transactional notifications           |
-| Administration  | Platform management and moderation    |
-
-# 6. Technology Stack
-
-The following technology stack is selected for the project.
-
-## Frontend
-
-| Technology       | Purpose                           |
-| ---------------- | --------------------------------- |
-| React            | Component-based UI development    |
-| JavaScript ES6+  | Frontend programming language     |
-| Vite             | Development server and build tool |
-| Tailwind CSS     | Styling and responsive design     |
-| Lucide React     | Icons                             |
-| React Router DOM | Client-side routing               |
-| Axios            | HTTP communication                |
-| TanStack Query   | Server-state management           |
-| React Hook Form  | Form management                   |
-| Zod              | Schema validation                 |
-
-## Backend
-
-| Technology      | Purpose                      |
-| --------------- | ---------------------------- |
-| Node.js         | JavaScript runtime           |
-| Express.js      | REST API framework           |
-| JavaScript ES6+ | Backend programming language |
-| Mongoose        | MongoDB object modeling      |
-| MongoDB         | NoSQL database               |
-| JWT             | Authentication               |
-| bcryptjs        | Password hashing             |
-| Zod             | Request validation           |
-| Multer          | File upload handling         |
-| Helmet          | HTTP security headers        |
-| Nodemailer      | Email communication          |
-
-## Database and Development Tools
-
-| Technology      | Purpose                               |
-| --------------- | ------------------------------------- |
-| MongoDB         | Primary database                      |
-| MongoDB Compass | Database visualization and management |
-| MongoDB Atlas   | Managed production database           |
-| Postman         | API testing                           |
-| Git             | Version control                       |
-| GitHub          | Source code hosting                   |
-
-## Infrastructure and Deployment
-
-| Technology     | Purpose                       |
-| -------------- | ----------------------------- |
-| Docker         | Application containerization  |
-| Docker Compose | Multi-container orchestration |
-| Nginx          | Reverse proxy and web serving |
-| AWS            | Production hosting option     |
-
-## Testing
+### Testing
 
 | Technology            | Purpose             |
 | --------------------- | ------------------- |
@@ -258,59 +177,75 @@ The following technology stack is selected for the project.
 | Playwright            | End-to-end testing  |
 | Postman               | Manual API testing  |
 
-**Technology Policy:** The active application stack uses JavaScript, MongoDB and Mongoose. TypeScript, PostgreSQL, Prisma and Redis are not part of the selected initial implementation.
+### Infrastructure
 
-# 7. System Architecture
+| Technology     | Purpose                            |
+| -------------- | ---------------------------------- |
+| Git and GitHub | Version control and source hosting |
+| Docker         | Containerization                   |
+| Docker Compose | Local service orchestration        |
+| Nginx          | Reverse proxy and web serving      |
+| MongoDB Atlas  | Managed database hosting           |
 
-Book Bazar follows a modular monolithic architecture.
+**Technology policy:** The selected initial stack uses JavaScript, MongoDB and Mongoose. TypeScript, PostgreSQL, Prisma and Redis are not part of the approved initial implementation.
 
-The frontend and backend are separate applications maintained within a single repository.
+---
+
+## 5. System Architecture
+
+Book Bazar follows a **Modular Monolith** architecture.
+
+The frontend and backend are independently organized applications within one npm workspace repository.
+
+### Architecture Principles
+
+- Separation of frontend and backend responsibilities.
+- Feature-oriented frontend organization.
+- Domain-separated backend modules.
+- Centralized validation and error handling.
+- Backend-enforced authentication and authorization.
+- Database-backed marketplace functionality.
+- Dedicated integration adapters for external services.
+- Auditable financial operations.
+- Versioned REST API contracts.
+
+### High-Level Architecture
 
 ```text
                     BOOK BAZAR
                          |
-              +----------+----------+
-              |                     |
-          FRONTEND               BACKEND
-              |                     |
-       React + Vite            Node.js
-       JavaScript              Express.js
-       Tailwind CSS            JavaScript
-       React Router            REST APIs
-       Axios                   JWT
-       TanStack Query          Mongoose
-              |                     |
-              +----------+----------+
-                         |
-                      MongoDB
-                         |
-              +----------+----------+
-              |                     |
-         MongoDB Compass       MongoDB Atlas
-          Development           Production
+             +-----------+-----------+
+             |                       |
+         React Web              Express API
+             |                       |
+      React Router          Middleware / Validation
+      TanStack Query                 |
+      Axios                  Domain Modules
+                                     |
+                           Application Services
+                                     |
+                              Mongoose Models
+                                     |
+                                  MongoDB
+                                     |
+                      +--------------+--------------+
+                      |              |              |
+                   Payments       Email         File Storage
+                   Provider      Provider         Provider
 ```
 
-## Architectural Principles
+External providers are integration dependencies. Their final selection and capabilities must be verified before implementation.
 
-- Modular monolithic backend.
-- Separation of frontend and backend.
-- Feature-based module organization.
-- Centralized API error handling.
-- Backend-enforced authorization.
-- Reusable frontend components.
-- MongoDB data validation through Mongoose and application services.
-- Secure handling of financial transactions.
-- External service integrations through dedicated adapters.
+---
 
-# 8. Repository Structure
+## 6. Repository Structure
 
-The planned repository structure is:
+The repository uses npm workspaces:
 
 ```text
 Book-Bazar/
 │
 ├── apps/
-│   │
 │   ├── web/
 │   │   ├── public/
 │   │   └── src/
@@ -340,11 +275,17 @@ Book-Bazar/
 ├── docs/
 │   ├── architecture/
 │   │   └── system-design-architecture.md
-│   ├── database/
-│   │   └── database-design.md
 │   ├── api/
 │   │   └── api-documentation.md
-│   ├── business-rules/
+│   ├── authentication/
+│   │   ├── feature-specification.md
+│   │   ├── user-flow.md
+│   │   ├── technical-specification.md
+│   │   ├── database-design.md
+│   │   ├── api-documentation.md
+│   │   └── testing.md
+│   ├── database/
+│   │   └── database-design.md
 │   ├── project-brief.md
 │   ├── requirements.md
 │   ├── feature-specification.md
@@ -354,11 +295,7 @@ Book-Bazar/
 │   └── testing.md
 │
 ├── infrastructure/
-│   ├── docker/
-│   └── nginx/
-│
 ├── scripts/
-│
 ├── .env.example
 ├── .gitignore
 ├── docker-compose.yml
@@ -366,20 +303,22 @@ Book-Bazar/
 └── README.md
 ```
 
-# 9. Prerequisites
+This is the intended architectural organization. The actual repository may contain additional files and folders as implementation progresses.
 
-Install the following software before development:
+---
 
-- Node.js 22 LTS
-- npm 10 or newer
-- Git
-- Visual Studio Code
-- Docker Desktop with Docker Compose
-- MongoDB Compass
+## 7. Prerequisites
 
-MongoDB Atlas will be used for managed production database hosting.
+Install:
 
-Verify installations:
+- Node.js with a compatible LTS version.
+- npm.
+- Git.
+- Visual Studio Code or another suitable IDE.
+- Docker Desktop with Docker Compose.
+- MongoDB Compass (optional).
+
+Verify the installations:
 
 ```powershell
 node --version
@@ -389,11 +328,11 @@ docker --version
 docker compose version
 ```
 
-# 10. Local Development Setup
+---
 
-The following setup procedure applies after the application foundation and required scripts have been implemented.
+## 8. Local Development Setup
 
-## Step 1: Clone Repository
+### Step 1 — Clone the Repository
 
 ```powershell
 git clone https://github.com/utkarshhhh004/Book-Bazar.git
@@ -401,212 +340,266 @@ git clone https://github.com/utkarshhhh004/Book-Bazar.git
 cd Book-Bazar
 ```
 
-## Step 2: Install Dependencies
+If the repository is already cloned, open its existing directory instead of cloning another copy.
+
+### Step 2 — Install Dependencies
 
 ```powershell
 npm install
 ```
 
-## Step 3: Configure Environment Variables
+### Step 3 — Configure Environment Variables
 
-Create a local environment file using the provided template:
+Create the root environment file from the template:
 
 ```powershell
 Copy-Item .env.example .env
 ```
 
-Configure the required environment variables.
+Populate the required values in `.env`.
 
-Never commit `.env` or production credentials.
+Never commit `.env` or expose production credentials.
 
-## Step 4: Start MongoDB
+### Step 4 — Start MongoDB
 
-Start the local MongoDB development service using Docker Compose:
+The repository includes a Docker Compose MongoDB service configured with a replica set.
 
 ```powershell
 docker compose up -d mongodb
 ```
 
-The local MongoDB configuration must support a replica set for operations requiring MongoDB transactions.
+Initialize the replica set using the configured setup service:
 
-## Step 5: Start the Application
+```powershell
+docker compose run --rm mongodb-setup
+```
 
-Start the frontend and backend using the configured development scripts:
+Verify the MongoDB service:
+
+```powershell
+docker compose ps
+```
+
+The application must use a MongoDB connection string compatible with the configured local replica set.
+
+### Step 5 — Start the Applications
+
+Start frontend and backend together:
 
 ```powershell
 npm run dev
 ```
 
-Alternatively, use the individual application scripts once configured:
+Or start them separately:
 
 ```powershell
 npm run dev:web
+```
+
+```powershell
 npm run dev:api
 ```
 
-## Step 6: Verify Services
+### Step 6 — Build and Test
 
-Default development URLs:
+Build all configured workspaces:
 
-| Service          | URL                                 |
-| ---------------- | ----------------------------------- |
-| Frontend         | http://localhost:5173               |
-| Backend API      | http://localhost:4000               |
-| API Health Check | http://localhost:4000/api/v1/health |
-| MongoDB          | mongodb://localhost:27017           |
-
-Actual ports and connection strings will be controlled through environment configuration.
-
-# 11. Environment Configuration
-
-The `.env.example` file will document the required configuration variables.
-
-Expected configuration categories include:
-
-```env
-NODE_ENV=development
-PORT=4000
-
-WEB_URL=http://localhost:5173
-
-MONGODB_URI=
-
-JWT_ACCESS_SECRET=
-JWT_REFRESH_SECRET=
-
-EMAIL_HOST=
-EMAIL_PORT=
-EMAIL_USER=
-EMAIL_PASSWORD=
-
-UPLOAD_STORAGE_PROVIDER=
+```powershell
+npm run build
 ```
 
-This is an illustrative configuration template. Exact variable names and required values will be finalized during backend implementation.
+Run configured workspace tests:
 
-Never store real credentials in this example file.
+```powershell
+npm test
+```
 
-# 12. Development Guidelines
+These commands execute the scripts currently defined in the repository. Module-specific test coverage will expand as implementation progresses.
 
-All development must follow these principles:
+### Local Service Configuration
 
-1. Use JavaScript ES6+ throughout frontend and backend.
-2. Keep frontend and backend responsibilities separate.
-3. Follow modular architecture.
-4. Keep business logic outside Express route handlers.
-5. Validate incoming API requests using Zod.
-6. Use Mongoose models for database operations.
-7. Enforce authorization on the backend.
-8. Verify resource ownership before modifications.
-9. Store monetary values as integer paise, not floating-point values.
-10. Verify payment status through trusted server-side verification.
-11. Prevent duplicate financial operations through idempotency.
-12. Never store card numbers, CVVs or UPI PINs.
-13. Keep private uploads in protected storage.
-14. Never commit credentials or production data.
-15. Maintain existing functionality when implementing new features.
-16. Test changes before committing.
+| Service          | Default                       |
+| ---------------- | ----------------------------- |
+| Frontend         | `http://localhost:5173`     |
+| Backend          | Controlled by `PORT`        |
+| MongoDB          | `mongodb://127.0.0.1:27017` |
+| MongoDB Database | `bookbazar`                 |
+| Replica Set      | `rs0`                       |
 
-# 13. Development Roadmap
-
-Development will follow these major milestones:
-
-| Milestone | Scope                                   |
-| --------- | --------------------------------------- |
-| 1         | Documentation and repository foundation |
-| 2         | Backend and database foundation         |
-| 3         | Frontend foundation                     |
-| 4         | Authentication and user management      |
-| 5         | Book catalogue and search               |
-| 6         | Seller listings and inventory           |
-| 7         | Cart and wishlist                       |
-| 8         | Checkout and order management           |
-| 9         | Payments, commissions and entitlements  |
-| 10        | Courier and shipment integration        |
-| 11        | Reviews, authors and notifications      |
-| 12        | Administrator dashboard                 |
-| 13        | Testing and quality assurance           |
-| 14        | Dockerization and deployment            |
-| 15        | Post-launch maintenance                 |
-
-Refer to `docs/development-roadmap.md` for the detailed implementation plan.
-
-# 14. Testing Strategy
-
-Testing will cover:
-
-- Unit testing.
-- Frontend component testing.
-- Backend API testing.
-- Database integration testing.
-- Authentication and authorization testing.
-- Marketplace workflow testing.
-- Payment and commission validation.
-- Inventory concurrency testing.
-- Entitlement validation.
-- Security testing.
-- Responsive UI testing.
-- End-to-end testing.
-- Regression testing.
-
-Refer to `docs/testing.md` for the complete testing strategy.
-
-# 15. Project Documentation
-
-The `docs/` directory contains the detailed project specifications.
-
-| Document                      | Purpose                                    |
-| ----------------------------- | ------------------------------------------ |
-| project-brief.md              | Project vision and overview                |
-| requirements.md               | Functional and non-functional requirements |
-| feature-specification.md      | Detailed module specifications             |
-| user-flow.md                  | User journeys and workflows                |
-| technical-specification.md    | Selected technology stack                  |
-| system-design-architecture.md | System architecture                        |
-| database-design.md            | MongoDB collection design                  |
-| api-documentation.md          | REST API contracts                         |
-| development-roadmap.md        | Development phases and milestones          |
-| testing.md                    | Testing and quality assurance              |
-
-This README provides the main project overview. Detailed implementation decisions are maintained in their respective documents.
-
-# 16. Future Enhancements
-
-Potential future capabilities include:
-
-- Digital book publishing.
-- Digital book distribution.
-- Author libraries.
-- Advanced book recommendations.
-- Personalized book discovery.
-- Loyalty and rewards.
-- Promotional campaigns.
-- Advanced seller analytics.
-- Expanded marketplace integrations.
-
-Future enhancements will be prioritized independently of the initial physical-book marketplace release.
-
-# 17. Security and Production Readiness
-
-Book Bazar is an actively developed software project.
-
-Before accepting real users or payments, the application must undergo:
-
-- Authentication and authorization verification.
-- Security review.
-- Payment integration testing.
-- Courier integration testing.
-- Financial reconciliation testing.
-- Privacy and data-protection review.
-- Database backup and recovery verification.
-- Production deployment validation.
-
-Production credentials, customer information and payment secrets must never be committed to the repository.
+Actual application ports and API routes are controlled by the active configuration.
 
 ---
 
-# BOOK BAZAR
+## 9. Environment Configuration
+
+The root `.env.example` documents the initial environment variable names:
+
+```env
+NODE_ENV=
+PORT=
+WEB_URL=
+MONGODB_URI=
+JWT_SECRET=
+JWT_EXPIRES_IN=
+CLIENT_URL=
+```
+
+Additional configuration may be introduced when integrations and production infrastructure are implemented.
+
+Rules:
+
+1. Never commit `.env`.
+2. Never place real credentials in `.env.example`.
+3. Never expose database credentials or JWT secrets.
+4. Use separate development, test and production configuration.
+5. Rotate credentials if they are accidentally exposed.
+6. Validate required environment variables during application startup.
+
+---
+
+## 10. Development Guidelines
+
+All development must follow these principles:
+
+1. Use JavaScript ES6+ throughout the initial frontend and backend.
+2. Maintain clear frontend/backend separation.
+3. Follow the approved modular architecture.
+4. Keep business logic outside Express route handlers.
+5. Validate incoming requests.
+6. Enforce authorization on the backend.
+7. Verify resource ownership before modifications.
+8. Store money as integer paise.
+9. Verify payments through trusted server-side mechanisms.
+10. Implement idempotency for financial operations.
+11. Never store card numbers, CVVs or UPI PINs.
+12. Protect private uploads.
+13. Preserve existing authentication functionality.
+14. Avoid fabricated marketplace inventory or transaction data.
+15. Test changes before committing.
+16. Update relevant documentation when business rules or technical contracts change.
+
+---
+
+## 11. Project Documentation
+
+The `docs/` directory contains the approved project documentation.
+
+| Document                                       | Purpose                                      |
+| ---------------------------------------------- | -------------------------------------------- |
+| `project-brief.md`                           | Project vision and overview                  |
+| `requirements.md`                            | Functional and non-functional requirements   |
+| `feature-specification.md`                   | Feature and module specifications            |
+| `user-flow.md`                               | User journeys and workflows                  |
+| `technical-specification.md`                 | Technology and implementation specifications |
+| `architecture/system-design-architecture.md` | System architecture                          |
+| `database/database-design.md`                | Database collections and relationships       |
+| `api/api-documentation.md`                   | Versioned REST API contracts                 |
+| `development-roadmap.md`                     | Development phases and milestones            |
+| `testing.md`                                 | Testing and quality assurance                |
+
+Authentication-specific documentation is maintained separately under `docs/authentication/` to preserve the existing authentication design and implementation context.
+
+---
+
+## 12. Development Roadmap
+
+Development follows the approved phased roadmap:
+
+1. Repository audit and baseline.
+2. Foundation and infrastructure.
+3. Authentication and account management.
+4. Catalogue and marketplace discovery.
+5. Seller onboarding and verification.
+6. Listings and inventory.
+7. Cart and checkout.
+8. Payment integration.
+9. Order and shipment management.
+10. Returns, refunds and disputes.
+11. Commission, earnings and settlements.
+12. Author publishing.
+13. Reviews and ratings.
+14. Notifications and support.
+15. Super Admin and governance.
+16. Testing, security and compliance.
+17. Production deployment.
+
+Refer to `docs/development-roadmap.md` for dependencies, deliverables and completion criteria.
+
+---
+
+## 13. Quality Assurance
+
+The project follows a layered testing strategy:
+
+- Unit testing.
+- Backend integration testing.
+- Frontend component testing.
+- API testing.
+- Database consistency testing.
+- End-to-end testing.
+- Regression testing.
+- Security and authorization testing.
+- Performance and reliability testing.
+- Deployment validation.
+
+A feature is not considered complete merely because its code has been written. It must satisfy its acceptance criteria and pass relevant verification.
+
+Refer to `docs/testing.md` for the complete testing strategy.
+
+---
+
+## 14. Security and Compliance
+
+Before production launch, Book Bazar requires:
+
+- Authentication and authorization verification.
+- Secure session and token management.
+- Payment provider verification.
+- Webhook signature validation.
+- Financial reconciliation.
+- Inventory concurrency validation.
+- Secure document and image uploads.
+- Privacy and data-retention review.
+- Indian consumer protection and marketplace compliance review.
+- Tax and invoicing review by qualified professionals.
+- Backup and disaster recovery validation.
+- Production security testing.
+
+Legal, tax and payment-provider requirements must be confirmed with qualified professionals and the selected providers before launch.
+
+---
+
+## 15. Future Enhancements
+
+Potential future capabilities include:
+
+- Digital book publishing and distribution.
+- Secure digital book access.
+- Author royalty management.
+- Personalized book recommendations.
+- Advanced seller analytics.
+- Promotional campaigns.
+- Loyalty and rewards.
+- Expanded marketplace integrations.
+
+Each future capability will require its own approved requirements and technical design before implementation.
+
+---
+
+## 16. Project Status
+
+Book Bazar is under active development.
+
+The architecture, business rules and project documentation establish the approved implementation direction. Individual modules must be implemented and verified according to the development roadmap.
+
+The presence of a feature in this README or API documentation does not imply that the feature is already implemented or production-ready.
+
+---
+
+## Book Bazar
 
 **One Platform. One Account. Multiple Possibilities.**
 
 A marketplace where everyone can discover, buy, sell and publish books.
+
+**Repository:** https://github.com/utkarshhhh004/Book-Bazar

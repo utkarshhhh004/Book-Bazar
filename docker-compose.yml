@@ -1,37 +1,52 @@
+
 services:
-  postgres:
-    image: postgres:17-alpine
-    container_name: book-bazar-postgres
+  mongodb:
+    image: mongo:8.0
+    container_name: book-bazar-mongodb
     restart: unless-stopped
-    environment:
-      POSTGRES_USER: bookbazar
-      POSTGRES_PASSWORD: bookbazar_dev_password
-      POSTGRES_DB: bookbazar
+    command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
     ports:
-      - "5432:5432"
+      - "27017:27017"
     volumes:
-      - book_bazar_postgres_data:/var/lib/postgresql/data
+      - book_bazar_mongodb_data:/data/db
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U bookbazar -d bookbazar"]
+      test:
+        [
+          "CMD",
+          "mongosh",
+          "--quiet",
+          "--eval",
+          "db.adminCommand('ping').ok"
+        ]
       interval: 5s
       timeout: 5s
-      retries: 10
+      retries: 15
 
-  redis:
-    image: redis:7-alpine
-    container_name: book-bazar-redis
-    restart: unless-stopped
-    ports:
-      - "6379:6379"
-    volumes:
-      - book_bazar_redis_data:/data
-    command: ["redis-server", "--appendonly", "yes"]
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 5s
-      timeout: 3s
-      retries: 10
+  mongodb-setup:
+    image: mongo:8.0
+    container_name: book-bazar-mongodb-setup
+    depends_on:
+      mongodb:
+        condition: service_healthy
+    restart: "no"
+    entrypoint:
+      - /bin/bash
+      - -c
+      - |
+        mongosh "mongodb://mongodb:27017/admin" --quiet --eval '
+          try {
+            rs.status();
+            print("Replica set already initialized");
+          } catch (error) {
+            rs.initiate({
+              _id: "rs0",
+              members: [
+                { _id: 0, host: "localhost:27017" }
+              ]
+            });
+            print("Replica set initialization requested");
+          }
+        '
 
 volumes:
-  book_bazar_postgres_data:
-  book_bazar_redis_data:
+  book_bazar_mongodb_data:

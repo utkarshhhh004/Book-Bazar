@@ -1,7 +1,6 @@
 
 import { z } from "zod";
 
-// Reusable email validation.
 const emailSchema = z
   .string()
   .trim()
@@ -9,13 +8,11 @@ const emailSchema = z
   .max(254)
   .transform((email) => email.toLowerCase());
 
-// Password policy.
 const passwordSchema = z
   .string()
   .min(12, "Password must contain at least 12 characters.")
   .max(128, "Password cannot exceed 128 characters.");
 
-// Postal address validation.
 const addressSchema = z
   .object({
     line1: z
@@ -57,7 +54,6 @@ const addressSchema = z
   })
   .strict();
 
-// Registration validation.
 export const registerSchema = z
   .object({
     fullName: z
@@ -67,11 +63,8 @@ export const registerSchema = z
       .max(100),
 
     email: emailSchema,
-
     address: addressSchema,
-
     password: passwordSchema,
-
     confirmPassword: z.string(),
   })
   .strict()
@@ -83,7 +76,6 @@ export const registerSchema = z
     }
   );
 
-// Login validation.
 export const loginSchema = z
   .object({
     email: emailSchema,
@@ -91,21 +83,30 @@ export const loginSchema = z
   })
   .strict();
 
-// Email-only validation.
+export const updateProfileSchema = z
+  .object({
+    fullName: z
+      .string()
+      .trim()
+      .min(2, "Full name must contain at least 2 characters.")
+      .max(100),
+
+    address: addressSchema,
+  })
+  .strict();
+
 export const emailSchemaValidator = z
   .object({
     email: emailSchema,
   })
   .strict();
 
-// Verification-token validation.
 export const verifyEmailSchema = z
   .object({
     token: z.string().min(1, "Verification token is required."),
   })
   .strict();
 
-// Password-reset validation.
 export const resetPasswordSchema = z
   .object({
     token: z.string().min(1, "Reset token is required."),
@@ -121,7 +122,6 @@ export const resetPasswordSchema = z
     }
   );
 
-// Change-password validation.
 export const changePasswordSchema = z
   .object({
     currentPassword: z.string().min(1),
@@ -144,5 +144,4 @@ export const changePasswordSchema = z
     }
   );
 
-// Empty request-body validation.
 export const emptyBodySchema = z.object({}).strict();

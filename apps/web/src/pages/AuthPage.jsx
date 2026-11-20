@@ -130,7 +130,7 @@ export default function AuthPage({ mode }) {
             "Your credentials are valid, but your email address is not verified. Please request a verification email."
           );
         } else {
-          navigate("/", { replace: true });
+          navigate("/dashboard", { replace: true });
         }
       } else {
         const response = await register({

@@ -1,0 +1,87 @@
+
+:root {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  color-scheme: dark;
+
+  /* Original Royal Wine / Metallic Crimson palette */
+  --bg: #160006;
+  --bg-soft: #210008;
+  --surface: #2b0812;
+  --surface-2: #3a0d1b;
+  --surface-3: #4b1123;
+
+  --border: #70243a;
+  --border-bright: #b83b59;
+
+  --primary: #e51b48;
+  --primary-bright: #ff4268;
+  --primary-dark: #950020;
+  --gold: #e9b96f;
+
+  --text: #fff3ef;
+  --muted: #d0afb7;
+  --muted-2: #a9838e;
+
+  --shadow: 0 15px 40px #00000055;
+  --glow: 0 0 22px #e51b4850;
+
+  --radius: 14px;
+  --container: 1200px;
+
+  /* Shared component aliases */
+  --text-primary: var(--text);
+  --text-secondary: var(--muted);
+  --card-background: var(--surface);
+  --surface-background: var(--bg-soft);
+  --border-color: var(--border);
+  --accent-color: var(--primary);
+  --accent-soft: #e51b4826;
+  --accent-light: #ffb5c3;
+
+  --sell-banner-start: #3a0718;
+  --sell-banner-end: #750d2c;
+  --sell-banner-text: #6e142c;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #fffafa;
+  --bg-soft: #fff4f6;
+  --surface: #ffffff;
+  --surface-2: #fff0f3;
+  --surface-3: #fbe1e8;
+
+  --border: #ecd3da;
+  --border-bright: #dca5b4;
+
+  --primary: #bd173c;
+  --primary-bright: #ed244f;
+  --primary-dark: #920020;
+  --gold: #a86d28;
+
+  --text: #24151a;
+  --muted: #765d66;
+  --muted-2: #866d76;
+
+  --shadow: 0 15px 40px #4b102018;
+  --glow: 0 0 22px #bd173c25;
+
+  --text-primary: var(--text);
+  --text-secondary: var(--muted);
+  --card-background: #ffffff;
+  --surface-background: #fff4f6;
+  --border-color: var(--border);
+  --accent-color: var(--primary);
+  --accent-soft: #bd173c18;
+  --accent-light: #ffd4dc;
+
+  --sell-banner-start: #8e1737;
+  --sell-banner-end: #bd173c;
+  --sell-banner-text: #6e142c;
+}

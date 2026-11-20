@@ -1,0 +1,187 @@
+
+.sell-banner {
+  padding: 65px 0;
+  background: var(--bg);
+}
+
+.sell-banner-content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  align-items: center;
+  gap: 35px;
+  overflow: hidden;
+  padding: 55px 60px;
+  border-radius: 24px;
+  background: linear-gradient(
+    125deg,
+    var(--sell-banner-start),
+    var(--sell-banner-end)
+  );
+  box-shadow: var(--shadow);
+}
+
+.sell-banner-text {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+}
+
+.sell-banner-eyebrow {
+  display: inline-block;
+  margin-bottom: 17px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.sell-banner-text h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(30px, 4vw, 46px);
+  font-weight: 850;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+}
+
+.sell-banner-text h2 span {
+  display: block;
+  color: #ffd2dc;
+}
+
+.sell-banner-text p {
+  max-width: 490px;
+  margin: 18px 0 26px;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.sell-banner-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 22px;
+  border-radius: 10px;
+  background: #fff;
+  color: var(--sell-banner-text);
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+
+.sell-banner-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
+}
+
+.sell-banner-visual {
+  position: relative;
+  display: flex;
+  min-height: 230px;
+  align-items: center;
+  justify-content: center;
+}
+
+.sell-banner-icon {
+  display: grid;
+  width: 170px;
+  height: 170px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 35px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transform: rotate(-8deg);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+
+.sell-banner-floating-card {
+  position: absolute;
+  right: -8px;
+  bottom: 5px;
+  display: flex;
+  max-width: 240px;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  background: rgba(35, 5, 16, 0.85);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 650;
+  line-height: 1.5;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.sell-banner-floating-card svg {
+  flex-shrink: 0;
+  color: var(--gold);
+}
+
+@media (max-width: 850px) {
+  .sell-banner-content {
+    grid-template-columns: 1fr;
+    padding: 45px;
+  }
+
+  .sell-banner-visual {
+    min-height: 190px;
+  }
+
+  .sell-banner-floating-card {
+    right: 10%;
+  }
+}
+
+@media (max-width: 550px) {
+  .sell-banner {
+    padding: 45px 0;
+  }
+
+  .sell-banner-content {
+    gap: 20px;
+    padding: 32px 23px;
+    border-radius: 18px;
+  }
+
+  .sell-banner-text h2 {
+    font-size: 32px;
+  }
+
+  .sell-banner-text p {
+    font-size: 13px;
+  }
+
+  .sell-banner-visual {
+    min-height: 170px;
+  }
+
+  .sell-banner-icon {
+    width: 130px;
+    height: 130px;
+  }
+
+  .sell-banner-floating-card {
+    right: 0;
+    bottom: 0;
+    max-width: 210px;
+    padding: 11px;
+    font-size: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sell-banner-button {
+    transition: none;
+  }
+
+  .sell-banner-button:hover {
+    transform: none;
+  }
+}

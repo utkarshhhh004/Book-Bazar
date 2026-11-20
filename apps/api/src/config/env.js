@@ -1,35 +1,38 @@
 
 import dotenv from "dotenv";
-import { z } from "zod";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-const currentDirectory = path.dirname(fileURLToPath(import.meta.url));
+const currentFile = fileURLToPath(import.meta.url);
+const currentDirectory = path.dirname(currentFile);
 
-const envPath = path.resolve(currentDirectory, "../../../../.env");
+// Resolve the root Book-Bazar/.env file.
+const rootEnvPath = path.resolve(
+  currentDirectory,
+  "../../../../.env"
+);
 
-dotenv.config({ path: envPath });
-
-const envSchema = z.object({
-  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
-
-  PORT: z.coerce.number().int().positive().default(4000),
-
-  WEB_URL: z.string().url().default("http://localhost:5173"),
-
-  MONGODB_URI: z.string().min(1, "MONGODB_URI is required"),
-
-  JWT_SECRET: z.string().min(32, "JWT_SECRET must contain at least 32 characters"),
-
-  JWT_EXPIRES_IN: z.string().default("7d")
+// Load root environment variables.
+// Existing environment variables are not overwritten.
+const result = dotenv.config({
+  path: rootEnvPath,
 });
 
-const result = envSchema.safeParse(process.env);
-
-if (!result.success) {
-  console.error("Environment validation failed:");
-  console.error(z.treeifyError(result.error));
-  process.exit(1);
+if (result.error && result.error.code !== "ENOENT") {
+  throw result.error;
 }
 
-export const env = result.data;
+export const env = {
+  NODE_ENV: process.env.NODE_ENV || "development",
+  PORT: Number(process.env.PORT || 4000),
+
+  WEB_URL: process.env.WEB_URL,
+  CLIENT_URL: process.env.CLIENT_URL,
+
+  MONGODB_URI: process.env.MONGODB_URI,
+
+  JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "15m",
+  JWT_REFRESH_EXPIRES_IN:
+    process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+};

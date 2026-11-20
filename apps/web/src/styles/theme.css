@@ -1,0 +1,21 @@
+
+html {
+  color: var(--text-primary);
+  background: var(--bg);
+}
+
+body {
+  color: var(--text-primary);
+  background:
+    radial-gradient(
+      ellipse at 50% 0%,
+      rgba(85, 9, 30, 0.16),
+      transparent 45%
+    ),
+    var(--bg);
+  transition: background-color 300ms ease, color 300ms ease;
+}
+
+html[data-theme="light"] body {
+  background: var(--bg);
+}

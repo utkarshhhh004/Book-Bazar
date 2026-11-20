@@ -1,0 +1,46 @@
+
+@media (max-width: 1024px) {
+  .container {
+    width: calc(100% - 40px);
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: calc(100% - 32px);
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+  }
+
+  .categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .featured-books-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .categories-grid,
+  .featured-books-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-card-image-wrapper {
+    height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

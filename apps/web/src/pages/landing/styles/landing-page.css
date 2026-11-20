@@ -1,0 +1,30 @@
+
+.landing-page {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.landing-page section {
+  position: relative;
+}
+
+.landing-page .container {
+  width: min(var(--container), calc(100% - 48px));
+  margin-inline: auto;
+}
+
+@media (max-width: 600px) {
+  .landing-page .container {
+    width: calc(100% - 32px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-page *,
+  .landing-page *::before,
+  .landing-page *::after {
+    scroll-behavior: auto !important;
+  }
+}

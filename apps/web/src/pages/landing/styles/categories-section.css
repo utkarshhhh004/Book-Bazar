@@ -1,0 +1,138 @@
+
+.categories-section {
+  padding: 75px 0;
+  background: var(--bg);
+}
+
+.section-heading {
+  margin-bottom: 38px;
+  text-align: center;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.section-heading h2 span {
+  color: var(--primary-bright);
+}
+
+.section-heading p {
+  margin: 13px 0 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.category-card {
+  display: flex;
+  min-height: 190px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 25px;
+  border: 1px solid var(--border-color);
+  border-radius: 17px;
+  background: var(--surface);
+  color: var(--text-primary);
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 250ms ease,
+    background 250ms ease,
+    border-color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.category-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--primary-bright);
+  background: var(--surface-2);
+  box-shadow: var(--glow);
+}
+
+.category-card.active {
+  border-color: var(--primary-bright);
+  background: var(--surface-2);
+  box-shadow: var(--glow);
+}
+
+.category-icon {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  background: var(--accent-soft);
+  color: var(--primary-bright);
+}
+
+.category-card h3 {
+  margin: 0;
+  color: var(--text-primary);
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.category-card p {
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .categories-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 550px) {
+  .categories-section {
+    padding: 55px 0;
+  }
+
+  .categories-grid {
+    gap: 12px;
+  }
+
+  .category-card {
+    min-height: 165px;
+    padding: 17px;
+  }
+
+  .category-icon {
+    width: 45px;
+    height: 45px;
+    margin-bottom: 13px;
+  }
+
+  .category-card h3 {
+    font-size: 14px;
+  }
+
+  .category-card p {
+    font-size: 11px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-card {
+    transition: none;
+  }
+
+  .category-card:hover {
+    transform: none;
+  }
+}

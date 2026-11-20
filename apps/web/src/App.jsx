@@ -4,6 +4,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
+import VerifyEmailPage from "./pages/VerifyEmailPage";
 
 import "./pages/auth-page.css";
 
@@ -27,11 +28,9 @@ export default function App() {
 
       <Routes>
         <Route path="/" element={<LandingPage />} />
-
         <Route path="/login" element={<AuthPage mode="login" />} />
-
         <Route path="/register" element={<AuthPage mode="register" />} />
-
+        <Route path="/verify-email" element={<VerifyEmailPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>

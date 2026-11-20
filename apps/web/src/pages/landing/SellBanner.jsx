@@ -28,17 +28,6 @@ export default function SellBanner() {
               <ArrowRight size={18} />
             </Link>
           </div>
-
-          <div className="sell-banner-visual">
-            <div className="sell-banner-icon">
-              <BookOpen size={58} />
-            </div>
-
-            <div className="sell-banner-floating-card">
-              <TrendingUp size={20} />
-              <span>Every Book Deserves Another Chapter</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>

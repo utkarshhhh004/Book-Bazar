@@ -6,11 +6,13 @@ import {
   PanelLeftOpen,
   Heart,
   ShoppingBag,
+  ShoppingCart,
   CirclePlus,
   Package,
   PenLine,
   BookMarked,
   Settings,
+  MapPin,
   Bell,
   Sun,
   Moon,
@@ -27,6 +29,7 @@ const navigationGroups = [
     label: "Marketplace",
     items: [
       { label: "Books", path: "/dashboard", icon: BookOpen, end: true },
+      { label: "Cart", path: "/dashboard/cart", icon: ShoppingCart },
       { label: "Wishlist", path: "/dashboard/wishlist", icon: Heart },
       { label: "My Orders", path: "/dashboard/orders", icon: ShoppingBag },
     ],
@@ -51,7 +54,18 @@ const navigationGroups = [
   },
   {
     label: "Account",
-    items: [{ label: "Settings", path: "/dashboard/settings", icon: Settings }],
+    items: [
+      {
+        label: "Addresses",
+        path: "/dashboard/addresses",
+        icon: MapPin,
+      },
+      {
+        label: "Settings",
+        path: "/dashboard/settings",
+        icon: Settings,
+      },
+    ],
   },
 ];
 

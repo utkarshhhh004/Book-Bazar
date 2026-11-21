@@ -8,11 +8,20 @@ import ProtectedRoute from "./components/auth/ProtectedRoute";
 import LandingPage from "./pages/LandingPage";
 import AuthPage from "./pages/AuthPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
+
 import BooksPage from "./pages/dashboard/BooksPage";
+import CartPage from "./pages/dashboard/CartPage";
+import AddressesPage from "./pages/dashboard/AddressesPage";
+import CheckoutPage from "./pages/dashboard/CheckoutPage";
 
 import "./pages/auth-page.css";
 import "./components/layout/dashboard-layout.css";
 import "./pages/dashboard/books-page.css";
+import "./pages/dashboard/cart-page.css";
+import "./pages/dashboard/addresses-page.css";
+import "./pages/dashboard/checkout-page.css";
+import WishlistPage from "./pages/dashboard/WishlistPage";
+import "./pages/dashboard/wishlist-page.css";
 
 export default function App() {
   const location = useLocation();
@@ -58,6 +67,14 @@ export default function App() {
             }
           >
             <Route index element={<BooksPage />} />
+
+            <Route path="cart" element={<CartPage />} />
+
+            <Route path="wishlist" element={<WishlistPage />} />
+
+            <Route path="addresses" element={<AddressesPage />} />
+
+            <Route path="checkout" element={<CheckoutPage />} />
           </Route>
         </Route>
 

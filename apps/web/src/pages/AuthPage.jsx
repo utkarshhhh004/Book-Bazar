@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import {
   ArrowLeft,
@@ -9,6 +8,7 @@ import {
   LockKeyhole,
   Mail,
   MapPin,
+  Phone,
   UserRound,
   Sparkles,
 } from "lucide-react";
@@ -35,6 +35,7 @@ export default function AuthPage({ mode }) {
     address: {
       line1: "",
       line2: "",
+      phone: "",
       city: "",
       state: "",
       postalCode: "",
@@ -80,7 +81,7 @@ export default function AuthPage({ mode }) {
 
       setSuccess(
         response?.message ||
-          "Verification email sent successfully. Please check your inbox."
+          "Verification email sent successfully. Please check your inbox.",
       );
     } catch (requestError) {
       const responseData = requestError.response?.data;
@@ -89,7 +90,7 @@ export default function AuthPage({ mode }) {
         responseData?.message ||
           responseData?.error?.message ||
           requestError.message ||
-          "Unable to resend verification email. Please try again."
+          "Unable to resend verification email. Please try again.",
       );
     } finally {
       setResending(false);
@@ -127,7 +128,7 @@ export default function AuthPage({ mode }) {
         if (response.user.emailVerified === false) {
           setVerificationRequired(true);
           setSuccess(
-            "Your credentials are valid, but your email address is not verified. Please request a verification email."
+            "Your credentials are valid, but your email address is not verified. Please request a verification email.",
           );
         } else {
           navigate("/dashboard", { replace: true });
@@ -139,6 +140,7 @@ export default function AuthPage({ mode }) {
           address: {
             line1: formData.address.line1.trim(),
             line2: formData.address.line2.trim(),
+            phone: formData.address.phone.trim(),
             city: formData.address.city.trim(),
             state: formData.address.state.trim(),
             postalCode: formData.address.postalCode.trim(),
@@ -151,7 +153,7 @@ export default function AuthPage({ mode }) {
         setSuccess(
           response?.verificationEmailSent === false
             ? "Your account has been created, but the verification email could not be sent. Please sign in and request verification again."
-            : "Your account has been created successfully. Please check your email to verify your account before signing in."
+            : "Your account has been created successfully. Please check your email to verify your account before signing in.",
         );
 
         setFormData((previous) => ({
@@ -167,7 +169,7 @@ export default function AuthPage({ mode }) {
         responseData?.error?.message ||
           responseData?.message ||
           requestError.message ||
-          "Something went wrong. Please try again."
+          "Something went wrong. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -291,6 +293,27 @@ export default function AuthPage({ mode }) {
                         required
                       />
                     </div>
+                  </div>
+
+                  <div className="auth-field">
+                    <label htmlFor="address.phone">Phone Number</label>
+                    <div className="auth-input-wrapper">
+                      <Phone size={18} />
+                      <input
+                        id="address.phone"
+                        name="address.phone"
+                        type="tel"
+                        placeholder="+91 9876543210"
+                        value={formData.address.phone}
+                        onChange={handleChange}
+                        autoComplete="tel"
+                        maxLength={20}
+                        required
+                      />
+                    </div>
+                    <span className="auth-field-hint">
+                      Include your country code, if applicable.
+                    </span>
                   </div>
 
                   <div className="auth-section-label">
@@ -504,11 +527,7 @@ export default function AuthPage({ mode }) {
                 </button>
               )}
 
-              <button
-                type="submit"
-                className="auth-submit"
-                disabled={loading}
-              >
+              <button type="submit" className="auth-submit" disabled={loading}>
                 {loading
                   ? "Please wait..."
                   : isLogin

@@ -1,6 +1,8 @@
+import mongoose from "mongoose";
 
 import User from "../models/User.js";
 import Session from "../models/Session.js";
+import Address from "../models/Address.js";
 
 import {
   hashPassword,
@@ -28,6 +30,9 @@ const sanitizeUser = (user) => ({
 
 /**
  * Register a new user.
+ *
+ * Creates the User and primary Address documents atomically.
+ * Sends the verification email only after the transaction commits.
  */
 export const registerUser = async (userData) => {
   const normalizedEmail = userData.email.trim().toLowerCase();
@@ -46,33 +51,75 @@ export const registerUser = async (userData) => {
 
   let user;
 
+  const session = await mongoose.startSession();
+
   try {
-    user = await User.create({
-      fullName: userData.fullName,
-      email: normalizedEmail,
-      passwordHash,
-      address: userData.address,
-      capabilities: ["buyer"],
-      isAdmin: false,
-      emailVerified: false,
-      accountStatus: "active",
+    await session.withTransaction(async () => {
+      const [createdUser] = await User.create(
+        [
+          {
+            fullName: userData.fullName,
+            email: normalizedEmail,
+            passwordHash,
+
+            // Preserve the existing embedded User.address structure.
+            address: {
+              line1: userData.address.line1,
+              line2: userData.address.line2 || "",
+              city: userData.address.city,
+              state: userData.address.state,
+              postalCode: userData.address.postalCode,
+              country: userData.address.country,
+            },
+
+            capabilities: ["buyer"],
+            isAdmin: false,
+            emailVerified: false,
+            accountStatus: "active",
+          },
+        ],
+        { session },
+      );
+
+      user = createdUser;
+
+      // Create the corresponding primary address document.
+      await Address.create(
+        [
+          {
+            userId: createdUser._id,
+            recipientName: userData.fullName,
+            phone: userData.address.phone,
+            addressLine1: userData.address.line1,
+            addressLine2: userData.address.line2 || "",
+            landmark: "",
+            city: userData.address.city,
+            state: userData.address.state,
+            postalCode: userData.address.postalCode,
+            country: userData.address.country || "India",
+            isDefault: true,
+          },
+        ],
+        { session },
+      );
     });
   } catch (error) {
     // Handle simultaneous registration attempts for the same email.
     if (error.code === 11000) {
-      const conflict = new Error(
-        "An account with this email already exists."
-      );
+      const conflict = new Error("An account with this email already exists.");
       conflict.statusCode = 409;
       throw conflict;
     }
 
     throw error;
+  } finally {
+    await session.endSession();
   }
 
   let verificationEmailSent = false;
 
   try {
+    // This executes only after the database transaction commits.
     await sendVerificationEmail(user._id);
     verificationEmailSent = true;
   } catch (error) {
@@ -89,11 +136,7 @@ export const registerUser = async (userData) => {
 /**
  * Authenticate a user and create a new session.
  */
-export const loginUser = async ({
-  email,
-  password,
-  userAgent = "",
-}) => {
+export const loginUser = async ({ email, password, userAgent = "" }) => {
   const normalizedEmail = email.trim().toLowerCase();
 
   const user = await User.findOne({
@@ -181,7 +224,7 @@ export const refreshUserSession = async (refreshToken) => {
         expiresAt: refresh.expiresAt,
         lastUsedAt: now,
       },
-    }
+    },
   );
 
   if (updateResult.modifiedCount !== 1) {
@@ -229,7 +272,7 @@ export const logoutUser = async (refreshToken) => {
       $set: {
         revokedAt: new Date(),
       },
-    }
+    },
   );
 };
 
@@ -246,7 +289,7 @@ export const logoutAllUserSessions = async (userId) => {
       $set: {
         revokedAt: new Date(),
       },
-    }
+    },
   );
 
   return {

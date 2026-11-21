@@ -1,4 +1,3 @@
-
 import {
   previewCheckout,
   createCheckout,
@@ -34,11 +33,12 @@ export const createCheckoutController = async (req, res, next) => {
     const result = await createCheckout({
       buyerId: req.user.id,
       addressId: req.body.addressId,
+      idempotencyKey: req.body.idempotencyKey,
     });
 
     return res.status(201).json({
       success: true,
-      message: "Checkout session created and inventory reserved.",
+      message: "Checkout session created or retrieved successfully.",
       data: result,
     });
   } catch (error) {

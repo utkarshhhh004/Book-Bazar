@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 
 import {
@@ -11,22 +10,25 @@ import { validate } from "../middlewares/validate.middleware.js";
 
 import {
   checkoutPreviewSchema,
+  createCheckoutSchema,
 } from "../validators/checkout.validator.js";
 
 const router = Router();
 
 router.use(authenticate);
 
+// Generate a read-only checkout preview.
 router.post(
   "/preview",
   validate(checkoutPreviewSchema),
-  checkoutPreviewController
+  checkoutPreviewController,
 );
 
+// Create a checkout session with an idempotency key.
 router.post(
   "/session",
-  validate(checkoutPreviewSchema),
-  createCheckoutController
+  validate(createCheckoutSchema),
+  createCheckoutController,
 );
 
 export default router;

@@ -4,12 +4,15 @@ import { env } from "../config/env.js";
 
 export const connectDatabase = async () => {
   try {
+    console.log("Connecting to MongoDB...");
+
     await mongoose.connect(env.MONGODB_URI, {
-      serverSelectionTimeoutMS: 10000
+      serverSelectionTimeoutMS: 10000,
     });
 
-    console.log("MongoDB connected successfully");
-    console.log(`Database: ${mongoose.connection.name}`);
+    console.log("MongoDB connected successfully!");
+    console.log("Database:", mongoose.connection.name);
+
   } catch (error) {
     console.error("MongoDB connection failed:", error.message);
     throw error;

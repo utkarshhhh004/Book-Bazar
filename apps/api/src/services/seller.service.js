@@ -1,4 +1,3 @@
-
 import mongoose from "mongoose";
 
 import User from "../models/User.js";
@@ -28,18 +27,29 @@ const requireSellerAccount = async (userId) => {
   }
 
   if (!user.capabilities.includes("seller")) {
-    throw createError("Activate your seller capability first.", 403, "SELLER_CAPABILITY_REQUIRED");
+    throw createError(
+      "Activate your seller capability first.",
+      403,
+      "SELLER_CAPABILITY_REQUIRED",
+    );
   }
 
   if (!user.emailVerified) {
-    throw createError("Verify your email before using seller features.", 403, "EMAIL_VERIFICATION_REQUIRED");
+    throw createError(
+      "Verify your email before using seller features.",
+      403,
+      "EMAIL_VERIFICATION_REQUIRED",
+    );
   }
 
   return user;
 };
 
 const getLatestVerification = (sellerId) =>
-  SellerVerification.findOne({ sellerId }).sort({ createdAt: -1, _id: -1 });
+  SellerVerification.findOne({ sellerId }).sort({
+    createdAt: -1,
+    _id: -1,
+  });
 
 const isSellerApproved = async (sellerId) => {
   const verification = await getLatestVerification(sellerId);
@@ -56,8 +66,7 @@ const toListingResponse = (listing) => {
 };
 
 /**
- * Activate seller capability on the existing user account.
- * This does not approve seller verification.
+ * Activate seller capability.
  */
 export const activateSeller = async (userId) => {
   const user = await User.findById(userId);
@@ -67,7 +76,11 @@ export const activateSeller = async (userId) => {
   }
 
   if (!user.emailVerified) {
-    throw createError("Verify your email before activating seller capability.", 403, "EMAIL_VERIFICATION_REQUIRED");
+    throw createError(
+      "Verify your email before activating seller capability.",
+      403,
+      "EMAIL_VERIFICATION_REQUIRED",
+    );
   }
 
   if (!user.capabilities.includes("seller")) {
@@ -83,7 +96,7 @@ export const activateSeller = async (userId) => {
 };
 
 /**
- * Seller dashboard summary and latest verification.
+ * Seller dashboard overview.
  */
 export const getSellerOverview = async (userId) => {
   await requireSellerAccount(userId);
@@ -92,8 +105,14 @@ export const getSellerOverview = async (userId) => {
     await Promise.all([
       getLatestVerification(userId),
       Listing.countDocuments({ sellerId: userId }),
-      Listing.countDocuments({ sellerId: userId, status: "active" }),
-      Listing.countDocuments({ sellerId: userId, status: "draft" }),
+      Listing.countDocuments({
+        sellerId: userId,
+        status: "active",
+      }),
+      Listing.countDocuments({
+        sellerId: userId,
+        status: "draft",
+      }),
     ]);
 
   return {
@@ -109,20 +128,19 @@ export const getSellerOverview = async (userId) => {
           updatedAt: verification.updatedAt,
         }
       : null,
+
     listings: {
       total: totalListings,
       active: activeListings,
       draft: draftListings,
     },
+
     canPublishPublicly: verification?.status === "approved",
   };
 };
 
 /**
- * Create or update a seller verification draft.
- *
- * Document uploads are intentionally not accepted as arbitrary URLs.
- * Secure document storage must be integrated before submission for review.
+ * Save seller verification draft.
  */
 export const saveSellerVerificationDraft = async (userId, data) => {
   await requireSellerAccount(userId);
@@ -131,7 +149,9 @@ export const saveSellerVerificationDraft = async (userId, data) => {
 
   if (
     existing &&
-    ["pending_review", "under_review", "approved", "suspended"].includes(existing.status)
+    ["pending_review", "under_review", "approved", "suspended"].includes(
+      existing.status,
+    )
   ) {
     throw createError(
       "Your current verification application cannot be edited in its present status.",
@@ -144,6 +164,7 @@ export const saveSellerVerificationDraft = async (userId, data) => {
     existing.submittedDetails = data.submittedDetails;
     existing.status = "draft";
     existing.reviewReason = "";
+
     await existing.save();
 
     return existing;
@@ -159,12 +180,11 @@ export const saveSellerVerificationDraft = async (userId, data) => {
 };
 
 /**
- * Create a seller listing.
- * Unverified sellers can only create drafts.
- * Approved sellers can create active listings for approved books.
+ * Create seller listing.
  */
 export const createSellerListing = async (userId, data) => {
   await requireSellerAccount(userId);
+
   requireValidId(data.bookId, "book identifier");
 
   const book = await Book.findById(data.bookId);
@@ -176,22 +196,16 @@ export const createSellerListing = async (userId, data) => {
   const approvedSeller = await isSellerApproved(userId);
 
   const canActivate =
-    approvedSeller &&
-    book.catalogueStatus === "approved" &&
-    data.quantity > 0;
+    approvedSeller && book.catalogueStatus === "approved" && data.quantity > 0;
 
-  if (
-    data.condition !== "new" &&
-    data.images.length === 0
-  ) {
+  if (data.condition !== "new" && data.images.length === 0) {
     throw createError("Actual book photographs are required for used books.");
   }
 
-  if (
-    data.condition === "acceptable" &&
-    data.disclosedDefects.length === 0
-  ) {
-    throw createError("Disclose the defects or missing pages for an acceptable-condition book.");
+  if (data.condition === "acceptable" && data.disclosedDefects.length === 0) {
+    throw createError(
+      "Disclose the defects or missing pages for an acceptable-condition book.",
+    );
   }
 
   const listing = await Listing.create({
@@ -203,6 +217,7 @@ export const createSellerListing = async (userId, data) => {
 
   return {
     listing: toListingResponse(listing),
+
     publicationMessage: canActivate
       ? "Your listing is now active in the marketplace."
       : "Your listing has been saved as a draft. Seller verification and catalogue approval are required before public visibility.",
@@ -210,7 +225,7 @@ export const createSellerListing = async (userId, data) => {
 };
 
 /**
- * Seller-owned listings only.
+ * Retrieve seller-owned listings.
  */
 export const getSellerListings = async (userId, filters = {}) => {
   await requireSellerAccount(userId);
@@ -233,19 +248,28 @@ export const getSellerListings = async (userId, filters = {}) => {
   }
 
   const page = Math.max(1, Number.parseInt(filters.page, 10) || 1);
-  const limit = Math.min(50, Math.max(1, Number.parseInt(filters.limit, 10) || 12));
+
+  const limit = Math.min(
+    50,
+    Math.max(1, Number.parseInt(filters.limit, 10) || 12),
+  );
 
   const [listings, total] = await Promise.all([
     Listing.find(query)
-      .populate("bookId", "title authors isbn publisher edition publicationYear language coverImage catalogueStatus")
+      .populate(
+        "bookId",
+        "title authors isbn publisher edition publicationYear language coverImage catalogueStatus",
+      )
       .sort({ updatedAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit),
+
     Listing.countDocuments(query),
   ]);
 
   return {
     listings: listings.map(toListingResponse),
+
     pagination: {
       page,
       limit,
@@ -256,11 +280,11 @@ export const getSellerListings = async (userId, filters = {}) => {
 };
 
 /**
- * Update a listing without allowing sellerId, bookId,
- * reservedQuantity or status to be overwritten.
+ * Update seller listing.
  */
 export const updateSellerListing = async (userId, listingId, data) => {
   requireValidId(listingId, "listing identifier");
+
   await requireSellerAccount(userId);
 
   const listing = await Listing.findOne({
@@ -273,13 +297,13 @@ export const updateSellerListing = async (userId, listingId, data) => {
   }
 
   if (["archived", "suspended", "sold_out"].includes(listing.status)) {
-    throw createError("This listing cannot be edited in its current status.", 409);
+    throw createError(
+      "This listing cannot be edited in its current status.",
+      409,
+    );
   }
 
-  if (
-    data.quantity !== undefined &&
-    data.quantity < listing.reservedQuantity
-  ) {
+  if (data.quantity !== undefined && data.quantity < listing.reservedQuantity) {
     throw createError(
       `Quantity cannot be lower than the ${listing.reservedQuantity} units already reserved.`,
     );
@@ -296,21 +320,24 @@ export const updateSellerListing = async (userId, listingId, data) => {
     nextCondition === "acceptable" &&
     (data.disclosedDefects ?? listing.disclosedDefects).length === 0
   ) {
-    throw createError("Disclose the defects or missing pages for an acceptable-condition book.");
+    throw createError(
+      "Disclose the defects or missing pages for an acceptable-condition book.",
+    );
   }
 
   Object.assign(listing, data);
+
   await listing.save();
 
   return toListingResponse(listing);
 };
 
 /**
- * Seller can pause an active listing or reactivate it
- * only when seller verification, book approval and stock allow it.
+ * Pause or activate listing.
  */
 export const updateSellerListingStatus = async (userId, listingId, status) => {
   requireValidId(listingId, "listing identifier");
+
   await requireSellerAccount(userId);
 
   const listing = await Listing.findOne({
@@ -328,6 +355,7 @@ export const updateSellerListingStatus = async (userId, listingId, status) => {
 
   if (status === "active") {
     const approvedSeller = await isSellerApproved(userId);
+
     const book = await Book.findById(listing.bookId).select("catalogueStatus");
 
     if (!approvedSeller || !book || book.catalogueStatus !== "approved") {
@@ -344,16 +372,18 @@ export const updateSellerListingStatus = async (userId, listingId, status) => {
   }
 
   listing.status = status;
+
   await listing.save();
 
   return toListingResponse(listing);
 };
 
 /**
- * Soft-delete a listing. Historical references remain intact.
+ * Archive listing without deleting historical records.
  */
 export const archiveSellerListing = async (userId, listingId) => {
   requireValidId(listingId, "listing identifier");
+
   await requireSellerAccount(userId);
 
   const listing = await Listing.findOne({
@@ -373,14 +403,14 @@ export const archiveSellerListing = async (userId, listingId) => {
   }
 
   listing.status = "archived";
+
   await listing.save();
 
   return toListingResponse(listing);
 };
 
 /**
- * Submit a new shared catalogue book for moderation.
- * It is not immediately purchasable.
+ * Submit new catalogue book for moderation.
  */
 export const submitCatalogueBook = async (userId, data) => {
   await requireSellerAccount(userId);
@@ -397,7 +427,9 @@ export const submitCatalogueBook = async (userId, data) => {
   }
 
   if (data.isbn) {
-    const existing = await Book.findOne({ isbn: data.isbn });
+    const existing = await Book.findOne({
+      isbn: data.isbn,
+    });
 
     if (existing) {
       throw createError(

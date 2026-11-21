@@ -1,4 +1,3 @@
-
 import axios from "axios";
 
 const API_BASE_URL =
@@ -7,9 +6,6 @@ const API_BASE_URL =
 export const api = axios.create({
   baseURL: API_BASE_URL,
   withCredentials: true,
-  headers: {
-    "Content-Type": "application/json",
-  },
   timeout: 15000,
 });
 
@@ -26,19 +22,27 @@ export const clearAccessToken = () => {
 
 export const getAccessToken = () => accessToken;
 
+// Request interceptor
 api.interceptors.request.use(
   (config) => {
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
+    // Let the browser generate the multipart boundary for FormData.
+    if (typeof FormData !== "undefined" && config.data instanceof FormData) {
+      delete config.headers["Content-Type"];
+    }
+
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
+// Response interceptor
 api.interceptors.response.use(
   (response) => response,
+
   async (error) => {
     const originalRequest = error.config;
 
@@ -47,7 +51,7 @@ api.interceptors.response.use(
       !originalRequest ||
       originalRequest._retry ||
       /\/auth\/(login|register|refresh|logout|forgot-password|reset-password)/.test(
-        originalRequest.url || ""
+        originalRequest.url || "",
       )
     ) {
       return Promise.reject(error);
@@ -64,18 +68,18 @@ api.interceptors.response.use(
             {
               withCredentials: true,
               timeout: 15000,
-            }
+            },
           )
           .then((response) => {
             const token =
-              response.data?.data?.accessToken ||
-              response.data?.accessToken;
+              response.data?.data?.accessToken || response.data?.accessToken;
 
             if (!token) {
               throw new Error("Access token missing from refresh response.");
             }
 
             setAccessToken(token);
+
             return token;
           })
           .finally(() => {
@@ -90,9 +94,10 @@ api.interceptors.response.use(
       return api(originalRequest);
     } catch (refreshError) {
       clearAccessToken();
+
       return Promise.reject(refreshError);
     }
-  }
+  },
 );
 
 export default api;

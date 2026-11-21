@@ -258,10 +258,10 @@ const buildCheckoutResponse = ({
   items,
   itemCount: items.reduce((total, item) => total + item.quantity, 0),
   bookSubtotalPaise,
-  shippingTotalPaise: null,
-  gatewayFeePaise: null,
-  taxTotalPaise: null,
-  totalPaise: null,
+  shippingTotalPaise: 0,
+  gatewayFeePaise: 0,
+  taxTotalPaise: 0,
+  totalPaise: bookSubtotalPaise,
   deliveryAddress: addressSnapshot,
 });
 

@@ -16,10 +16,10 @@ export const checkoutPreviewController = async (req, res, next) => {
       data: {
         items: result.items,
         bookSubtotalPaise: result.bookSubtotalPaise,
-        shippingTotalPaise: null,
-        gatewayFeePaise: null,
-        taxTotalPaise: null,
-        totalPaise: null,
+        shippingTotalPaise: 0,
+        gatewayFeePaise: 0,
+        taxTotalPaise: 0,
+        totalPaise: result.bookSubtotalPaise,
         deliveryAddress: result.addressSnapshot,
       },
     });
